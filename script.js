@@ -20,28 +20,31 @@ myLibrary.push(newBook)
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', '295 pages', false)
 
 //Prints the books into HTMl
-for (let i = 0; i < myLibrary.length; i++){
+const printBook = function(){
+let k = myLibrary.length - 1 
  let card = document.createElement('div')
  let paraG = document.createElement('p')
  container.append(card)
  card.append(paraG)
- if(myLibrary[i].read == false){
- paraG.innerHTML = `${myLibrary[i].title} by ${myLibrary[i].author}, ${myLibrary[i].pages}, have not read.`
+ if(myLibrary[k].read == undefined){
+ paraG.innerHTML = `${myLibrary[k].title} by ${myLibrary[k].author}, ${myLibrary[k].pages}, have not read.`
 }
 else{
-  paraG.innerHTML = `${myLibrary[i].title} by ${myLibrary[i].author}, ${myLibrary[i].pages}, have read.`
+  paraG.innerHTML = `${myLibrary[k].title} by ${myLibrary[k].author}, ${myLibrary[k].pages}, have read.`
 }
-}
+
 openDia.addEventListener('click', () => {
   dialog.showModal()
-})
+})}
 
 //Get user input 
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const preData = new FormData(form)
+  userdata = Object.fromEntries(preData)
 
-form.addEventListener('submit', callbackFunction);
-function callbackFunction(event) {
-  event.preventDefault();
-  const myFormData = new FormData(event.target);
-
-  const formDataObj = Object.fromEntries(myFormData.entries());
-  console.log(formDataObj);}
+  addBookToLibrary(userdata.title, userdata.author, userdata.pages, userdata.read)
+  printBook()
+  form.reset()
+});
+printBook()
