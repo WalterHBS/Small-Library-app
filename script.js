@@ -15,11 +15,11 @@ function Book(title, author, pages, read) {
   this.read = read
   }
   Book.prototype.changeRead = function(){
-    if (read == undefined){
-      read = true
+    if (this.read == undefined){
+      this.read = true
     }
     else{
-      read = undefined
+      this.read = undefined
     }
   }
 //function to add the book into the array
@@ -28,6 +28,7 @@ let newBook = new Book(title, author, pages, read)
 myLibrary.push(newBook)
 }
 
+
 //Prints the books into HTMl
 const printBook = function(){
 let k = myLibrary.length - 1 
@@ -35,6 +36,8 @@ let k = myLibrary.length - 1
  let paraG = document.createElement('p')
  let deleteBtn = document.createElement('button')
  let readBtn = document.createElement('button')
+ let readValue;
+ 
  deleteBtn.innerHTML = "Delete"
  card.setAttribute('order', k)
  container.append(card)
@@ -42,17 +45,29 @@ let k = myLibrary.length - 1
 card.append(deleteBtn)
 card.append(readBtn)
 
- if(myLibrary[k].read == undefined){
- paraG.innerHTML = `${myLibrary[k].title} by ${myLibrary[k].author}, ${myLibrary[k].pages}, have not read.`
+ function changeReadValue(){if(myLibrary[k].read == undefined){
+  readValue = 'have not read'
  readBtn.innerHTML = 'Mark as read'
 }
 else{
-  paraG.innerHTML = `${myLibrary[k].title} by ${myLibrary[k].author}, ${myLibrary[k].pages}, have read.`
+  readValue = 'have read'
   readBtn.innerHTML = 'Mark as unread'
+}}
+changeReadValue()
+function printParaText(title, author, pages, read){
+paraG.innerHTML = `${title} by ${author}, ${pages}, ${read}`
 }
+printParaText(myLibrary[k].title, myLibrary[k].author, myLibrary[k].pages, readValue)
+//delete the display of the book
 deleteBtn.addEventListener('click', () => {
   let execute = document.querySelector(`div[order="${k}"]`);
   execute.remove();
+})
+//change the read feature
+readBtn.addEventListener('click', () => {
+  myLibrary[k].changeRead()
+  changeReadValue()
+  printParaText(myLibrary[k].title, myLibrary[k].author, myLibrary[k].pages, readValue)
 })
 }
 
