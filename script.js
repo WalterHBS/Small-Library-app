@@ -1,10 +1,12 @@
 //declare all the inputs
-const container = document.querySelector('.book-container')
-const openDia = document.querySelector('.add-book')
-const dialog = document.querySelector('dialog')
-const closeDia = document.querySelector('.close-dialog')
-const form = document.querySelector('form')
+const container = document.querySelector('.book-container');
+const openDia = document.querySelector('.add-book');
+const dialog = document.querySelector('.FormSubmission'); // Update the selector to match the class name of the dialog
+const closeDia = document.querySelector('.close-dialog');
+const form = document.querySelector('form');
+const submitForm = document.querySelector('.submit-dialog');
 const myLibrary = [];
+
 //constructor function
 function Book(title, author, pages, read) {
   this.title = title
@@ -17,8 +19,8 @@ function addBookToLibrary(title, author, pages, read) {
 let newBook = new Book(title, author, pages, read)
 myLibrary.push(newBook)
 }
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', '295 pages', false)
-
+ addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', '295 pages', false)
+ 
 //Prints the books into HTMl
 const printBook = function(){
 let k = myLibrary.length - 1 
@@ -33,12 +35,14 @@ else{
   paraG.innerHTML = `${myLibrary[k].title} by ${myLibrary[k].author}, ${myLibrary[k].pages}, have read.`
 }
 
-openDia.addEventListener('click', () => {
+openDia.addEventListener('click', (e) => {
+  e.preventDefault()
   dialog.showModal()
 })}
 
 //Get user input 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', (e) =>  { e.preventDefault();})
+submitForm.addEventListener('click', (e) => {
   e.preventDefault();
   const preData = new FormData(form)
   userdata = Object.fromEntries(preData)
@@ -46,5 +50,10 @@ form.addEventListener('submit', (e) => {
   addBookToLibrary(userdata.title, userdata.author, userdata.pages, userdata.read)
   printBook()
   form.reset()
+  dialog.close()
+
 });
+closeDia.addEventListener('click', () => {
+  dialog.close()
+})
 printBook()

@@ -5,33 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="./style.css">
+  <script defer src="./script.js"></script>
 </head>
 <body>
   <div class="container">
    <button class="add-book">Add Book</button>
-   <dialog>
+   <dialog class="FormSubmission">
     <form action="" method="post">
       <div class="title-container">
         <label for="title">Title</label>
-        <input type="text" name="title" id="title" required>
+        <input type="text" name="title" id="title" >
       </div>
       <div class="author-container">
         <label for="author">Who's the author?</label>
-        <input type="text" name="author" id="author" required>
+        <input type="text" name="author" id="author" >
       </div>
       <div class="page-container">
         <label for="pages">How many pages?</label>
-        <input type="number" name="pages" id="pages" required>
+        <input type="number" name="pages" id="pages" >
       </div>
       <div class="read-container">
         <label for="read">Have you read it yet?</label>
         <input type="Checkbox" name="read" id="read">
       </div>
-      <button class="close-dialog" type="submit">Add book</button>
+      <button class="submit-dialog" type="submit">Add book</button>
+      <button class="close-dialog" formmethod="dialog">Close</button>
     </form>
    </dialog>
    <div class="book-container"></div>
   </div>
-  <script src="./script.js"></script>
 </body>
 </html>
