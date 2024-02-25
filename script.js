@@ -25,14 +25,24 @@ const printBook = function(){
 let k = myLibrary.length - 1 
  let card = document.createElement('div')
  let paraG = document.createElement('p')
+ let deleteBtn = document.createElement('button')
+ deleteBtn.innerHTML = "Delete"
+ card.setAttribute('order', k)
  container.append(card)
  card.append(paraG)
+card.append(deleteBtn)
+
  if(myLibrary[k].read == undefined){
  paraG.innerHTML = `${myLibrary[k].title} by ${myLibrary[k].author}, ${myLibrary[k].pages}, have not read.`
 }
 else{
   paraG.innerHTML = `${myLibrary[k].title} by ${myLibrary[k].author}, ${myLibrary[k].pages}, have read.`
-}}
+}
+deleteBtn.addEventListener('click', () => {
+  let execute = document.querySelector(`div[order="${k}"]`);
+  execute.remove();
+})
+}
 
  ShowDialog.addEventListener('click', () => {
     dialog.showModal()
