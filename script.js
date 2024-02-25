@@ -14,6 +14,14 @@ function Book(title, author, pages, read) {
   this.pages = pages
   this.read = read
   }
+  Book.prototype.changeRead = function(){
+    if (read == undefined){
+      read = true
+    }
+    else{
+      read = undefined
+    }
+  }
 //function to add the book into the array
 function addBookToLibrary(title, author, pages, read) {
 let newBook = new Book(title, author, pages, read)
@@ -49,8 +57,7 @@ deleteBtn.addEventListener('click', () => {
   })
 
 //Get user input 
-form.addEventListener('submit', (e) =>  { e.preventDefault();})
-submitForm.addEventListener('click', (e) => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
   const preData = new FormData(form)
   userdata = Object.fromEntries(preData)
